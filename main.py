@@ -142,6 +142,7 @@ class MusicDownloaderApp:
         self.progress_bar.bind("<ButtonRelease-1>", self.seek_song)
         
         # 时间标签
+        '''加个注释玩玩'''
         time_frame = tk.Frame(frame_left, bg='#f0f0f0')
         time_frame.pack()
         self.label_current_length = tk.Label(time_frame, text="当前时间: 00:00", bg='#f0f0f0')
