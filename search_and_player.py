@@ -117,14 +117,13 @@ class SearchAndPlayer:
     def display_album_cover(self, song_id):
         """显示专辑封面"""
         try:
-            # 直接通过歌曲ID获取歌曲详情
             song_detail = track.GetTrackDetail(song_id)
             if 'songs' in song_detail and song_detail['songs']:
                 album_cover_url = song_detail['songs'][0]['al']['picUrl']
                 if album_cover_url:
                     response = requests.get(album_cover_url)
                     image_data = Image.open(BytesIO(response.content))
-                    image_data = image_data.resize((200, 200), Image.Resampling.LANCZOS)
+                    image_data = image_data.resize((100, 100), Image.Resampling.LANCZOS)
                     album_cover = ImageTk.PhotoImage(image_data)
                     self.album_cover_label.config(image=album_cover)
                     self.album_cover_label.image = album_cover
@@ -132,7 +131,7 @@ class SearchAndPlayer:
         except Exception as e:
             messagebox.showerror("错误", f"加载专辑封面失败: {e}")
         
-        # 如果获取失败，清空专辑封面
+        # 如果获取失败，显示默认图片
         self.album_cover_label.config(image='')
         self.album_cover_label.image = None
 
@@ -191,7 +190,7 @@ class SearchAndPlayer:
                     # 在歌曲结束前1秒预加载并播放下一首
                     if self.playlist_mode and (self.total_length - current_time) <= 1:
                         self.prepare_and_play_next()
-                        break  # 退出当前歌曲的进度条更新循环
+                        break  # 退出当前歌曲的进度条更新���环
 
     def prepare_and_play_next(self):
         """准备并播放下一首歌曲"""
